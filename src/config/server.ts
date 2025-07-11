@@ -1,6 +1,6 @@
 import express from "express";
-import { errorsHandler } from "../middlewares";
-import { parseTranslationsRouter } from "../routes";
+import { errorsHandler } from "../middlewares/index.js";
+import { parseTranslationsRouter } from "../routes/index.js";
 
 export const server = express();
 server.use(express.json());

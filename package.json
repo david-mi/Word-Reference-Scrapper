@@ -2,6 +2,7 @@
   "name": "word-reference-scrapper",
   "version": "1.0.0",
   "main": "app.ts",
+  "type": "module",
   "scripts": {
     "start": "node ./dist/app.js",
     "dev": "tsx --env-file=.env --watch ./src/app.ts",
