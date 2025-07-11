@@ -1,0 +1,23 @@
+{
+  "name": "word-reference-scrapper",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "scripts": {
+    "start": "node ./dist/app.js",
+    "dev": "tsx --env-file=.env --watch ./src/app.ts",
+    "build": "rm -rf ./dist && tsc",
+    "ts-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.13",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "author": "david-mi",
+  "license": "ISC",
+  "description": ""
+}
