@@ -1,0 +1,1 @@
+export const WORD_REFERENCE_BASE_URL = "https://www.wordreference.com";
