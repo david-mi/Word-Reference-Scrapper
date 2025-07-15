@@ -7,27 +7,27 @@ import { validators } from "../validators/index.js";
 
 export interface ExtractTranslationsQueryType {
   word: string;
-  fromLang: string;
-  toLang: string;
+  sourceLang: string;
+  targetLang: string;
 }
 
 export const extractTranslations: RequestHandler<unknown, unknown, unknown, ExtractTranslationsQueryType> = async (req, res, next) => {
   try {
-    const { word, fromLang, toLang } = req.query;
+    const { word, sourceLang, targetLang } = req.query;
 
     if (!word) {
       throw new Error("'word' parameter is required");
     }
 
-    if (!fromLang) {
-      throw new Error("'fromLang' parameter is required");
+    if (!sourceLang) {
+      throw new Error("'sourceLang' parameter is required");
     }
 
-    if (!toLang) {
-      throw new Error("'toLang' parameter is required");
+    if (!targetLang) {
+      throw new Error("'targetLang' parameter is required");
     }
 
-    const html = await fetchHtml(`${WORD_REFERENCE_BASE_URL}/${fromLang}${toLang}/${word}`);
+    const html = await fetchHtml(`${WORD_REFERENCE_BASE_URL}/${sourceLang}${targetLang}/${word}`);
     const dom = new windowAdapter.DOMParser().parseFromString(html, "text/html");
     validators.validateDom(dom, req.query);
     const translationsEntries = services.extractor.extractTranslationEntries(dom);
