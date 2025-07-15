@@ -30,7 +30,7 @@ export const extractTranslations: RequestHandler<unknown, unknown, unknown, Extr
     const html = await fetchHtml(`${WORD_REFERENCE_BASE_URL}/${sourceLang}${targetLang}/${word}`);
     const dom = new windowAdapter.DOMParser().parseFromString(html, "text/html");
     validators.validateDom(dom, req.query);
-    const translationsEntries = services.extractor.extractTranslationEntries(dom);
+    const translationsEntries = services.extractor.extractTranslationEntries(dom, req.query);
 
     return res.status(200).json({ translationsEntries });
   }

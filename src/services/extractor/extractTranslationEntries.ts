@@ -1,3 +1,4 @@
+import { ExtractTranslationsQueryType } from "../../controllers/extractTranslations.js";
 import type { TranslationItemType, ExtractedTranslationEntryType } from "./types.js";
 
 function getRowGroupSiblings(baseElem: Element): Element[] {
@@ -12,14 +13,14 @@ function getRowGroupSiblings(baseElem: Element): Element[] {
   return siblings;
 }
 
-export function extractTranslationRowGroups(html: Document): Element[][] {
+export function extractTranslationRowGroups(html: Document, { sourceLang, targetLang }: ExtractTranslationsQueryType): Element[][] {
   return Array
-    .from(html.querySelectorAll("tr[id^='enfr']"))
+    .from(html.querySelectorAll(`tr[id^='${targetLang}${sourceLang}']`))
     .map(getRowGroupSiblings);
 }
 
-export function extractTranslationEntries(html: Document): ExtractedTranslationEntryType[] {
-  const translationRowGroups = extractTranslationRowGroups(html);
+export function extractTranslationEntries(html: Document, query: ExtractTranslationsQueryType): ExtractedTranslationEntryType[] {
+  const translationRowGroups = extractTranslationRowGroups(html, query);
   const extractedTranslationEntries: ExtractedTranslationEntryType[] = [];
 
   for (const translationRowGroup of translationRowGroups) {
