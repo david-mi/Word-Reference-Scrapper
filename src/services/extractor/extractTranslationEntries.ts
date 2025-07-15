@@ -29,8 +29,8 @@ export function extractTranslationEntries(html: Document): ExtractedTranslationE
       grammarTags: "",
       notes: [],
       translationItems: [],
-      englishSentence: "",
-      frenchSentence: "",
+      sourceSentence: "",
+      targetSentence: "",
     };
 
     for (const translationRow of translationRowGroup) {
@@ -39,8 +39,8 @@ export function extractTranslationEntries(html: Document): ExtractedTranslationE
       setGrammarTags(extractedTranslationEntry, translationRow);
       setNotes(extractedTranslationEntry, translationRow);
       setTranslationItem(extractedTranslationEntry, translationRow);
-      setEnglishSentence(extractedTranslationEntry, translationRow);
-      setFrenchSentence(extractedTranslationEntry, translationRow);
+      setSourceSentence(extractedTranslationEntry, translationRow);
+      setTargetSentence(extractedTranslationEntry, translationRow);
     }
 
     extractedTranslationEntries.push(extractedTranslationEntry);
@@ -89,14 +89,14 @@ function setTranslationItem(extractedTranslationEntry: ExtractedTranslationEntry
   extractedTranslationEntry.translationItems.push(translationItem);
 }
 
-function setEnglishSentence(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
-  const englishSentence = translationRow.querySelector(".FrEx")?.textContent?.trim() || "";
+function setSourceSentence(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
+  const sourceSentence = translationRow.querySelector(".FrEx")?.textContent?.trim() || "";
 
-  extractedTranslationEntry.englishSentence ||= englishSentence;
+  extractedTranslationEntry.sourceSentence ||= sourceSentence;
 };
 
-function setFrenchSentence(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
-  const frenchSentence = translationRow.querySelector(".ToEx")?.textContent?.trim() || "";
+function setTargetSentence(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
+  const targetSentence = translationRow.querySelector(".ToEx")?.textContent?.trim() || "";
 
-  extractedTranslationEntry.frenchSentence ||= frenchSentence;
+  extractedTranslationEntry.targetSentence ||= targetSentence;
 };

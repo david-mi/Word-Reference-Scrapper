@@ -9,6 +9,6 @@ export type ExtractedTranslationEntryType = {
   grammarTags: string;
   notes: string[];
   translationItems: TranslationItemType[],
-  englishSentence: string,
-  frenchSentence: string,
+  sourceSentence: string,
+  targetSentence: string,
 };
