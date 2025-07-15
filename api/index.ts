@@ -1,4 +1,5 @@
-import { server } from "./config/server.js";
+import { server } from "../src/config/server.js";
+
 const PORT = process.env.PORT
   ? parseInt(process.env.PORT, 10)
   : 3000;

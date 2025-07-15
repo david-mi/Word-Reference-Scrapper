@@ -4,8 +4,8 @@
   "main": "app.ts",
   "type": "module",
   "scripts": {
-    "start": "node --env-file=.env ./dist/app.js",
-    "dev": "tsx --env-file=.env --watch ./src/app.ts",
+    "start": "node --env-file=.env ./dist/api/index.js",
+    "dev": "tsx --env-file=.env --watch ./api/index.ts",
     "build": "rm -rf ./dist && tsc",
     "ts-check": "tsc --noEmit",
     "test": "vitest"

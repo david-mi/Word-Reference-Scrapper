@@ -6,7 +6,9 @@
     "**/*.mock.ts",
   ],
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./api/**/*",
+    "api",
   ],
   "compilerOptions": {
     "esModuleInterop": true,
