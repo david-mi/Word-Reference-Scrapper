@@ -8,12 +8,12 @@ import { validators } from "../validators/index.js";
 export interface ExtractTranslationsQueryType {
   word: string;
   sourceLang: string;
-  targetLang: string;
+  translationLang: string;
 }
 
 export const extractTranslations: RequestHandler<unknown, unknown, unknown, ExtractTranslationsQueryType> = async (req, res, next) => {
   try {
-    const { word, sourceLang, targetLang } = req.query;
+    const { word, sourceLang, translationLang } = req.query;
 
     if (!word) {
       throw new Error("'word' parameter is required");
@@ -23,11 +23,11 @@ export const extractTranslations: RequestHandler<unknown, unknown, unknown, Extr
       throw new Error("'sourceLang' parameter is required");
     }
 
-    if (!targetLang) {
-      throw new Error("'targetLang' parameter is required");
+    if (!translationLang) {
+      throw new Error("'translationLang' parameter is required");
     }
 
-    const html = await fetchHtml(`${WORD_REFERENCE_BASE_URL}/${sourceLang}${targetLang}/${word}`);
+    const html = await fetchHtml(`${WORD_REFERENCE_BASE_URL}/${sourceLang}${translationLang}/${word}`);
     const dom = new windowAdapter.DOMParser().parseFromString(html, "text/html");
     validators.validateDom(dom, req.query);
     const translationsEntries = services.extractor.extractTranslationEntries(dom, req.query);

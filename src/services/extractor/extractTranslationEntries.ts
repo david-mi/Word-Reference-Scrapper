@@ -13,9 +13,9 @@ function getRowGroupSiblings(baseElem: Element): Element[] {
   return siblings;
 }
 
-export function extractTranslationRowGroups(html: Document, { sourceLang, targetLang }: ExtractTranslationsQueryType): Element[][] {
+export function extractTranslationRowGroups(html: Document, { sourceLang, translationLang }: ExtractTranslationsQueryType): Element[][] {
   return Array
-    .from(html.querySelectorAll(`tr[id^='${targetLang}${sourceLang}']`))
+    .from(html.querySelectorAll(`tr[id^='${sourceLang}${translationLang}']`))
     .map(getRowGroupSiblings);
 }
 
@@ -30,8 +30,8 @@ export function extractTranslationEntries(html: Document, query: ExtractTranslat
       grammarTags: "",
       notes: [],
       translationItems: [],
-      sourceSentence: "",
-      targetSentence: "",
+      sourceSentenceExample: "",
+      translatedSentenceExample: "",
     };
 
     for (const translationRow of translationRowGroup) {
@@ -40,8 +40,8 @@ export function extractTranslationEntries(html: Document, query: ExtractTranslat
       setGrammarTags(extractedTranslationEntry, translationRow);
       setNotes(extractedTranslationEntry, translationRow);
       setTranslationItem(extractedTranslationEntry, translationRow);
-      setSourceSentence(extractedTranslationEntry, translationRow);
-      setTargetSentence(extractedTranslationEntry, translationRow);
+      setSourceSentenceExample(extractedTranslationEntry, translationRow);
+      setTranslatedSentenceExample(extractedTranslationEntry, translationRow);
     }
 
     extractedTranslationEntries.push(extractedTranslationEntry);
@@ -90,14 +90,14 @@ function setTranslationItem(extractedTranslationEntry: ExtractedTranslationEntry
   extractedTranslationEntry.translationItems.push(translationItem);
 }
 
-function setSourceSentence(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
+function setSourceSentenceExample(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
   const sourceSentence = translationRow.querySelector(".FrEx")?.textContent?.trim() || "";
 
-  extractedTranslationEntry.sourceSentence ||= sourceSentence;
+  extractedTranslationEntry.sourceSentenceExample ||= sourceSentence;
 };
 
-function setTargetSentence(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
-  const targetSentence = translationRow.querySelector(".ToEx")?.textContent?.trim() || "";
+function setTranslatedSentenceExample(extractedTranslationEntry: ExtractedTranslationEntryType, translationRow: Element): void {
+  const translatedSentence = translationRow.querySelector(".ToEx")?.textContent?.trim() || "";
 
-  extractedTranslationEntry.targetSentence ||= targetSentence;
+  extractedTranslationEntry.translatedSentenceExample ||= translatedSentence;
 };
